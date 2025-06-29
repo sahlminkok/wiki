@@ -1,0 +1,5 @@
+.venv/
+db.sqlite3
+**__pycache__/
+config.bat
+node_modules
