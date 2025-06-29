@@ -1,10 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from . import util
 
 def index(request):
+    query = request.GET.get("q", "").strip()
+    entries = util.list_entries()
+
+    if query:
+        for entry in entries:
+            if entry.lower() == query.lower():
+                return redirect("entry_page", title=entry)
+            
+        entries = [entry for entry in entries if query.lower() in entry.lower()]
+
     return render(request, "encyclopedia/index.html", {
-        "entries": util.list_entries()
+        "entries": entries,
+        "query": query
     })
 
 def entry_page(request, title):
