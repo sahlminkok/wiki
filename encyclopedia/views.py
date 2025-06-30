@@ -28,3 +28,20 @@ def entry_page(request, title):
         "entry": entry,
         "title": title
     })
+
+def new_page(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        content = request.POST["content"]
+
+        entry = util.get_entry(title)
+
+        if entry is None:
+            util.save_entry(title=title, content=content)
+            return redirect('index')
+        else:
+            return render(request, "encyclopedia/new.html", {
+                "message": "Encyclopedia entry already exists"
+            })
+
+    return render(request, "encyclopedia/new.html")
