@@ -1,3 +1,4 @@
+import markdown2
 import random
 
 from django.shortcuts import redirect, render
@@ -22,7 +23,7 @@ def index(request):
     })
 
 def entry_page(request, title):
-    entry = util.get_entry(title)
+    entry = markdown2.markdown(util.get_entry(title))
 
     if entry is None:
         return render(request, "encyclopedia/404.html", status=404)
