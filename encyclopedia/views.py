@@ -1,4 +1,7 @@
+import random
+
 from django.shortcuts import redirect, render
+from django.http import HttpResponse
 
 from . import util
 
@@ -58,3 +61,10 @@ def edit_page(request, title):
         "title": title,
         "content": entry
     })
+
+def random_page(request):
+    entries = util.list_entries()
+    title = random.choice(entries)
+
+    if request.method == "GET":
+        return redirect('entry_page', title)
