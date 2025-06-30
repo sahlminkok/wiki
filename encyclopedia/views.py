@@ -45,3 +45,16 @@ def new_page(request):
             })
 
     return render(request, "encyclopedia/new.html")
+
+def edit_page(request, title):
+    entry = util.get_entry(title)
+
+    if request.method == "POST":
+        content = request.POST["content"]
+        util.save_entry(title=title, content=content)
+        return redirect('entry_page', title)
+
+    return render(request, "encyclopedia/edit.html", {
+        "title": title,
+        "content": entry
+    })
