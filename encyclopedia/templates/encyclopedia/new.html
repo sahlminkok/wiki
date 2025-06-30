@@ -1,0 +1,20 @@
+{% extends "encyclopedia/layout.html" %} {% block body %}
+<form action="" method="post">
+  {% csrf_token %}
+  <h1>Create a new entry</h1>
+
+  {% if message %}
+  <p>{{ message }}</p>
+  {% endif %}
+
+  <p>
+    <input type="text" name="title" placeholder="Enter title" />
+  </p>
+  <p>
+    <textarea name="content" placeholder="Please enter the markdown"></textarea>
+  </p>
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+{% endblock %}
